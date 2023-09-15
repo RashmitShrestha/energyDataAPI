@@ -18,6 +18,13 @@ app.listen(process.env.PORT, () => {
   console.log("http://localhost:" + process.env.PORT);
 });
 
+
+app.get("/hey", (req, res) => { 
+  res.send("ho!");
+});
+
+
+
 app.get("/state/:state", (req, res) => {
   try {
     dbCSV.getState(req, res);
