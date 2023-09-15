@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 
 const dbCSV = require("./dbScript.js");
-
+const dotenv = require("dotenv");
+dotenv.config();
 app.use(express.static("public"));
 
 app.use(express.json());
@@ -13,8 +14,8 @@ if(process.env.NODE_ENV === 'production'){
 }
 
 
-app.listen(process.env.PORT || 8080, () => {
-  console.log("http://localhost:" + 8080);
+app.listen(process.env.PORT, () => {
+  console.log("http://localhost:" + process.env.PORT);
 });
 
 app.get("/state/:state", (req, res) => {
