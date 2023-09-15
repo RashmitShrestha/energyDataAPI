@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar and Wind API</title>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+  <!--Jquery-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+  <style>
+    body {
+      background-color: #f8f6f6;
+    }
+
+    #apiNavUL li a {
+      color: goldenrod;
+      font-weight: 600;
+    }
+
+    #logo {
+      /* border: 15px solid rgb(255, 210, 11); */
+      border-radius: 50%;
+    }
+
+    #apiNavUL li a:hover {
+      color: black;
+    }
+
+    #apiDropD li a {
+      color: #c7be3a;
+      font-weight: 700;
+    }
+
+    @media screen and (max-width: 992px) {
+      #apiNavUL {
+        display: none;
+      }
+    }
+
+    @media screen and (min-width: 992px) {
+      #apiNavUL {
+        display: block;
+      }
+
+      #apiDropD {
+        display: none;
+      }
+
+    }
+    table th {
+      width: auto !important;
+    }
+  </style>
+
+
+
+</head>
+
+<body style=" overflow: visible !important;">
+  <div class="px-4 py-5 my-5 text-center" style="border-bottom: 15px solid rgb(255, 210, 11);">
+    <br /><br /><br />
+    <img class="d-block mx-auto mb-4" id="logo" src="logo.png" alt="" width="200vw">
+    <br />
+    <h1 style="color:#000 !important;" class="display-5 fw-bold text-body-emphasis">Solar and Wind Plants
+      API</h1>
+
+
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4 fw-bold">An API aggregating entries of renewable-energy projects, specifically solar and wind
+        energy, all across North America and parts of Mexico. Abridged version of the extensive database</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button type="button" class="btn btn-warning btn-lg px-4"><a style="text-decoration: none; color: #000" href="#sect">Learn the API</a></button>
+      </div>
+      <br /><br />
+    </div>
+  </div>
+
+  <div class="container justify-content-lg-center " id="sect">
+    <div class="row">
+      <div class="col-lg-2 col-sm-12 ">
+        <h4>API Endpoints:</h4>
+
+        <ul id="apiNavUL" style="list-style-type: none;">
+          <li><a href="#statee">State</a></li>
+          <li><a href="#regionn">Region</a></li>
+          <li><a href="#netCapp">Net Capacity</a></li>
+          <li><a href="#namee">Plant Name</a></li>
+          <li><a href="#quartt">Quarter</a></li>
+          <li><a href="#fuell">Fuel Code</a></li>
+        </ul>
+
+        <ul id="apiDropD" class="nav">
+          <li class="nav-item"> <a class="nav-link" href="#">State</a></li>
+          <li class="nav-item"> <a class="nav-link" href="#">Region</a></li>
+          <li class="nav-item"> <a class="nav-link" href="#">Power Unit</a></li>
+          <li class="nav-item"> <a class="nav-link" href="#">Net Capacity</a></li>
+          <li class="nav-item"> <a class="nav-link" href="#">Plant Name</a></li>
+          <li class="nav-item"> <a class="nav-link" href="#">Quarter</a></li>
+          <li class="nav-item"> <a class="nav-link" href="#">Fuel Code</a></li>
+        </ul>
+
+      </div>
+      <div class="col-lg-10 col-sm-12">
+
+        <h3>API Call Example:</h3>
+        <p>By calling an API Endpoint, a list of entries will be returned, or if
+          the provided query doesn't relate to an entry in the database, an empty
+          json object will be returned</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Field Name</th>
+              <th scope="col">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Plant Name</td>
+              <td>The name of the plant </td>
+            </tr>
+            <tr>
+            <tr>
+              <td>Plant State</td>
+              <td>The state or territory the plant is located in</td>
+            </tr>
+            </tr>
+            <tr>
+            <tr>
+              <td>Unit</td>
+              <td>The kind of technology the plant uses and its type (for example, PV1 is less efficient
+                than PV2, with PV relating to solar photovoltaic cells)</td>
+            </tr>
+            </tr>
+            <tr>
+            <tr>
+              <td>Net Capacity</td>
+              <td>The total capacity of the plant, measured in megawatts</td>
+            </tr>
+            </tr>
+            <tr>
+            <tr>
+              <td>Size Group</td>
+              <td>The size grouping based on the Net Capacity, denoting the electric output of the plant</td>
+            </tr>
+            </tr>
+            <tr>
+            <tr>
+              <td>Current Capacity</td>
+              <td>The current net capacity of the plant, measured in megawatts, same value as the net capcity usually
+              </td>
+            </tr>
+            </tr>
+            <tr>
+            <tr>
+              <td>Fuel Code</td>
+              <td>The type of technology the plant uses to generate energy, SUN is solar and WND is wind energy</td>
+            </tr>
+            </tr>
+            <tr>
+            <tr>
+              <td>Quarter</td>
+              <td>The quarter in a year in which the data is captured from, includes Summer, Fall, Winter, and Spring
+              </td>
+            </tr>
+            </tr>
+            <tr>
+            <tr>
+              <td>Region</td>
+              <td>The region in the United States or the area in North America the plant is located</td>
+            </tr>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+        <div id="statee" class="card">
+          <h5 class="card-header">Get by state</h5>
+          <div class="card-body">
+            <p class="card-text">Return a group of projects based on the state specified in the endpoint</p>
+            <p><b>Accepts a string</b></p>
+
+            <p><span
+                style="background-color:rgb(243, 200, 9); border-radius: 5px; padding:1px 5px; font-weight: bold;">GET</span>
+              https://pokeapi.co/state/{name of state}</p>
+
+
+
+            <div class="dropdown">
+              <button class="btn btn-warning dropdown-toggle"  
+                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                All States
+              </button>
+              <ul class="dropdown-menu">
+                <table class="table">
+                  <tbody> <!--Rows with 10 clumns, except for the last two rows, which will have 9 columns -->
+                    <tr>
+                      <td>Aguascalientes</td>
+                      <td>Baja California</td>
+                      <td>Baja California Sur</td>
+                      <td>Campeche</td>
+                      <td>Chiapas</td>
+                      <td>Chihuahua</td>
+                      <td>Coahuila</td>
+                      <td>Colima</td>
+                      <td>Durango</td>
+                      <td>Guanajuato</td>
+                    </tr>
+                    <tr>
+                      <td>Guerrero</td>
+                      <td>Hidalgo</td>
+                      <td>Jalisco</td>
+                      <td>Estado de Mexico</td>
+                      <td>Michoacan</td>
+                      <td>Morelos</td>
+                      <td>Nayarit</td>
+                      <td>Nuevo Leon</td>
+                      <td>Oaxaca</td>
+                      <td>Puebla</td>
+
+                    </tr>
+                    <tr>
+                      <td>Queretaro</td>
+                      <td>Quintana Roo</td>
+                      <td>San Luis Potosi</td>
+                      <td>Sinaloa</td>
+                      <td>Sonora</td>
+                      <td>Tabasco</td>
+                      <td>Tamaulipas</td>
+                      <td>Tlaxcala</td>
+                      <td>Veracruz</td>
+                      <td>Yucatan</td>
+                    </tr>
+
+                    <tr>
+                      <td>Zacatecas</td>
+                      <td>Alabama</td>
+                      <td>Alaska</td>
+                      <td>Arizona</td>
+                      <td>Arkansas</td>
+                      <td>California</td>
+                      <td>Colorado</td>
+                      <td>Connecticut</td>
+                      <td>Delaware</td>
+                      <td>District of Columbia</td>
+                    </tr>
+
+                    <tr>
+                      <td>Florida</td>
+                      <td>Georgia</td>
+                      <td>Hawaii</td>
+                      <td>Idaho</td>
+                      <td>Illinois</td>
+                      <td>Indiana</td>
+                      <td>Iowa</td>
+                      <td>Kansas</td>
+                      <td>Kentucky</td>
+                      <td>Louisiana</td>
+                    </tr>
+
+                    <tr>
+                      <td>Maine</td>
+                      <td>Maryland</td>
+                      <td>Massachusetts</td>
+                      <td>Michigan</td>
+                      <td>Minnesota</td>
+                      <td>Mississippi</td>
+                      <td>Missouri</td>
+                      <td>Montana</td>
+                      <td>Nebraska</td>
+                      <td>Nevada</td>
+                    </tr>
+
+                    <tr>
+                      <td>New Hampshire</td>
+                      <td>New Jersey</td>
+                      <td>New Mexico</td>
+                      <td>New York</td>
+                      <td>North Carolina</td>
+                      <td>North Dakota</td>
+                      <td>Ohio</td>
+                      <td>Oklahoma</td>
+                      <td>Oregon</td>
+                      <td>Pennsylvania</td>
+                    </tr>
+
+                    <tr>
+                      <td>Rhode Island</td>
+                      <td>South Carolina</td>
+                      <td>South Dakota</td>
+                      <td>Tennessee</td>
+                      <td>Texas</td>
+                      <td>Utah</td>
+                      <td>Vermont</td>
+                      <td>Virginia</td>
+                      <td>Washington</td>
+                      <td>West Virginia</td>
+                    </tr>
+
+                    <tr>
+                      <td>Wisconsin</td>
+                      <td>Wyoming</td>
+                      <td>Alberta</td>
+                      <td>British Columbia</td>
+                      <td>Manitoba</td>
+                      <td>New Brunswick</td>
+                      <td>Newfoundland & Labrador</td>
+                      <td>Northwest Territories</td>
+                      <td>Nova Scotia</td>
+                      <td>Ontario</td>
+                    </tr>
+
+                    <tr>
+                      <td>Prince Edward Island</td>
+                      <td>Quebec</td>
+                      <td>Saskatchewan</td>
+                      <td>Virgin Islands</td>
+                      <td>Yukon Territory</td>
+                      <td>American Samoa</td>
+                      <td>Guam</td>
+                      <td>Puerto Rico</td>
+                      <td>US Virgin Islands</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <div  id="regionn" class="card">
+          <h5 class="card-header">Get by region</h5>
+          <div class="card-body">
+            <p class="card-text">Return a group of projects based on the region specified in the endpoint</p>
+            <p><b>Accepts a string</b></p>
+
+            <p><span
+                style="background-color:rgb(243, 200, 9); border-radius: 5px; padding:1px 5px; font-weight: bold;">GET</span>
+              https://pokeapi.co/state/{name of region}</p>
+
+            <div class="dropdown">
+              <button class="btn btn-warning dropdown-toggle" 
+                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                All Regions
+              </button>
+              <ul class="dropdown-menu">
+                <table class="table">
+                  <tbody> <!--Rows with 10 clumns, except for the last two rows, which will have 9 columns -->
+                    <tr>
+                      <td>Southwest</td>
+                      <td>Midwest</td>
+                      <td>Mexico</td>
+                      <td>Northeast</td>
+                    </tr>
+                    <tr>
+                      <td>West</td>
+                      <td>Southeast</td>
+                      <td>Canada</td>
+                      <td>Territories</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <div id="netCapp" class="card">
+          <h5 class="card-header">Get by net capacity</h5>
+          <div class="card-body">
+            <p class="card-text">Return a group of projects based on the minimum and maximum query of the net capacity
+              of the plants, in megawatts</p>
+            <p><b>Accepts a decimal or whole number</b></p>
+
+            <p><span
+                style="background-color:rgb(243, 200, 9); border-radius: 5px; padding:1px 5px; font-weight: bold;">GET</span>
+                http://localhost:8080/netCap?qlower={ minimum value }&qhigher={ maximum value }</p>
+          </div>
+        </div>
+
+        <br />
+        <div id="namee"  class="card">
+          <h5 class="card-header">Get by plant name</h5>
+          <div class="card-body">
+            <p class="card-text">Return a group of projects based on the state specified in the endpoint</p>
+            <p><b>Accepts a string</b></p>
+            <p><span
+                style="background-color:rgb(243, 200, 9); border-radius: 5px; padding:1px 5px; font-weight: bold;">GET</span>
+              https://pokeapi.co/name/{name of solar or wind plant}</p>
+          </div>
+        </div>
+
+        <br />
+        <div id="quartt" class="card">
+          <h5 class="card-header">Get by quarter</h5>
+          <div class="card-body">
+            <p class="card-text">Return a group of projects based on the state specified in the endpoint</p>
+            <p><b>Accepts a string</b></p>
+            <p><span
+                style="background-color:rgb(243, 200, 9); border-radius: 5px; padding:1px 5px; font-weight: bold;">GET</span>
+              https://pokeapi.co/quarter/{name of quarter of the year}</p>
+
+            <div class="dropdown">
+              <button class="btn btn-warning dropdown-toggle" 
+                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                All Quarters
+              </button>
+              <ul class="dropdown-menu">
+                <table class="table">
+                  <tbody> <!--Rows with 10 clumns, except for the last two rows, which will have 9 columns -->
+                    <tr>
+                      <td>Fall</td>
+                      <td>Winter</td>
+                    </tr>
+                    <tr>
+                      <td>Spring</td>
+                      <td>Summer</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div id="fuell" class="card">
+          <h5 class="card-header">Get by fuel code</h5>
+          <div class="card-body">
+            <p class="card-text">Return a group of projects based on the state specified in the endpoint</p>
+            <p><b>Accepts a string</b></p>
+            <p><span
+                style="background-color:rgb(243, 200, 9); border-radius: 5px; padding:1px 5px; font-weight: bold;">GET</span>
+              https://pokeapi.co/fuel/{name of fuel code}</p>
+
+            <div class="dropdown">
+              <button class="btn btn-warning dropdown-toggle" 
+                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                All Fuel Codes
+              </button>
+              <ul class="dropdown-menu">
+                <table class="table">
+                  <tbody> <!--Rows with 10 clumns, except for the last two rows, which will have 9 columns -->
+                    <tr>
+                      <td>SUN</td>
+                      <td>WND</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+</body>
+
+
+<script>
+
+  // document.getElementById("logo").style.border = `${Math.round(3 * Math.sqrt(1000))}px solid rgb(${Math.round(3 * Math.sqrt(1000))}, 210, 11)}`;
+  
+  window.addEventListener("scroll", () => {
+  
+  
+  document.getElementById("logo").style.border = `${Math.round(3 * Math.sqrt(window.scrollY))}px solid rgb(${Math.round(3 * Math.sqrt(window.scrollY))}, 210, 11)}`;
+  console.log(3 * Math.sqrt(window.scrollY));
+  
+  })
+  
+  </script>
+  
+
+
+
+</html>
