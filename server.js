@@ -7,6 +7,12 @@ app.use(express.static("public"));
 
 app.use(express.json());
 
+if(process.env.NODE_ENV === 'production'){
+  //set static folder
+  app.use(express.static('public'));
+}
+
+
 app.listen(process.env.PORT || 8080, () => {
   console.log("http://localhost:" + 8080);
 });
